@@ -1,0 +1,76 @@
+{% extends 'codeinflux/base.html' %}
+
+{% block title %}Home | {% endblock %}
+
+{% block content %}
+<style>
+  .sector {
+    position: relative;
+    height: 400px;
+    background-color: #f2f2f2;
+    overflow: hidden;
+  }
+
+  .sector-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero {
+    margin-top: 40px;
+  }
+
+  .post {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .post h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  .post h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .post p {
+    margin-bottom: 10px;
+  }
+</style>
+
+<section class="sector">
+  <img class="sector-image" src="https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Image">
+</section>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <section class="section">
+        <div class="columns">
+          <div class="column is-8 is-offset-2">
+            {% for post in posts %}
+            <div class="post">
+              <a href="{% url 'post_detail' post.category.slug  post.slug %}">
+                <h2 class="subtitle is-4">{{ post.created_at|timesince}} ago</h2>
+                <h1 class="title">{{ post.title }}</h1>
+                <p>{{ post.intro }}</p>
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock %}
